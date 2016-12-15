@@ -14,6 +14,7 @@
 @property (nonatomic,strong) UILabel *loginLabel;       //登录后显示
 @property (nonatomic,strong) UILabel *signLabel;        //签名
 @property (nonatomic,strong) UILabel *settingLabel;     //
+@property (nonatomic,strong) UILabel *cacheLabel;
 @property (nonatomic) CGFloat height;                   //单元格高度
 
 @end

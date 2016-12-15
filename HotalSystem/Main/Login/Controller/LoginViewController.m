@@ -34,7 +34,7 @@
 - (LoginView *)loginView{
     if (_loginView == nil) {
         _loginView = [[LoginView alloc]initWithFrame:self.view.frame];
-        [_loginView.icon setImage:[UIImage imageNamed:@"lunbo_01"]];
+        [_loginView.icon setImage:[UIImage imageNamed:@"noIcon"]];
         [self.view addSubview:_loginView];
     }
     return _loginView;
@@ -112,7 +112,7 @@
             });
         }else{
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self.loginView.icon setImage:[UIImage imageNamed:@"lunbo_01"]];
+                [self.loginView.icon setImage:[UIImage imageNamed:@"noIcon"]];
             });
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {

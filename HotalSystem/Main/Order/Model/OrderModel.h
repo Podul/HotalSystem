@@ -10,7 +10,15 @@
 
 @interface OrderModel : NSObject
 //提交订单信息
-+ (void)submitOrder:(NSArray *)foods;
++ (void)orderWithsubmit:(NSArray *)foods;
 //查询订单信息
-+ (void)queryOrder;
++ (void)orderWithQuery:(NSString *)accountid;
+//用户确认订单
++ (void)orderWithUserConfirm:(NSString *)orderid;
+//管理员确认订单
++ (void)orderWithAdminConfirm:(NSString *)orderid;
+//用户取消订单
++ (void)orderWithUserCancel:(NSString *)orderid;
+//管理员取消订单
++ (void)orderWithAdminCancel:(NSString *)orderid;
 @end

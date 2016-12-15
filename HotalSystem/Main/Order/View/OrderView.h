@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MBProgressHUD.h>
 
 @interface OrderView : UIView
 
 @property (nonatomic,strong) UITableView *tableView;
+@property (nonatomic,strong) MBProgressHUD *proHUD;
 
 - (void)createOrderView:(id)object;
 @end

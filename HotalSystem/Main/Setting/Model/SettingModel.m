@@ -13,9 +13,9 @@
 
 - (NSMutableArray *)infos{
     if (_infos == nil) {
-        NSString *path = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/setting.plist"];
-        if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
-            _infos = [NSMutableArray arrayWithContentsOfFile:path];
+//        NSString *path = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/setting.plist"];
+        if ([[NSFileManager defaultManager] fileExistsAtPath:SPATH]) {
+            _infos = [NSMutableArray arrayWithContentsOfFile:SPATH];
         }else{
             _infos = [NSMutableArray arrayWithContentsOfFile:[[NSBundle mainBundle]pathForResource:@"setting" ofType:@"plist"]];
         }

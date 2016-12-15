@@ -11,6 +11,7 @@
 #import "SettingModel.h"
 #import "SettingTableViewCell.h"
 #import "LoginViewController.h"
+#import <SDImageCache.h>
 #import <SWRevealViewController.h>
 #import <UIImageView+WebCache.h>
 
@@ -49,7 +50,7 @@ static NSString *settingCell = @"settingCell";
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    
+    [self.settingView.tableView reloadData];
 }
 
 #pragma mark -- 各种通知
@@ -128,9 +129,8 @@ static NSString *settingCell = @"settingCell";
     }
     
     //保存到plist文件
-    NSString *path = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/setting.plist"];
-    [self.settingM.infos writeToFile:path atomically:YES];
-    
+//    NSString *path = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/setting.plist"];
+    [self.settingM.infos writeToFile:SPATH atomically:YES];
     dispatch_async(dispatch_get_main_queue(), ^{
         //刷新单元格
         [self.settingView.tableView reloadData];
@@ -166,7 +166,7 @@ static NSString *settingCell = @"settingCell";
         if (indexPath.section == 0 && indexPath.row == 0) {
             cell = [tableView dequeueReusableCellWithIdentifier:userCell forIndexPath:indexPath];
             cell.loginLabel.text = array[indexPath.row][@"user_name"];
-            [cell.icon sd_setImageWithURL:[NSURL URLWithString:array[indexPath.row][@"icon_url"]] placeholderImage:[UIImage imageNamed:@"lunbo_01"]];
+            [cell.icon sd_setImageWithURL:[NSURL URLWithString:array[indexPath.row][@"icon_url"]] placeholderImage:[UIImage imageNamed:@"noIcon"]];
             cell.signLabel.text = array[indexPath.row][@"signature"];
         }else{
             cell = [tableView dequeueReusableCellWithIdentifier:settingCell forIndexPath:indexPath];
@@ -175,6 +175,22 @@ static NSString *settingCell = @"settingCell";
                 [cell.settingLabel setTextColor:[UIColor redColor]];
             }else{
                 [cell.settingLabel setTextColor:[UIColor blackColor]];
+            }
+            
+            if ([cell.settingLabel.text isEqualToString:@"清除缓存"]) {
+                //计算检查缓存大小
+                NSUInteger size = [[SDImageCache sharedImageCache]getSize]; //字节
+                NSString *tmpSize;
+                if (size < 1024) {    //b
+                    tmpSize = [NSString stringWithFormat:@"%.1fB",size/1.0];
+                }else if (size < 1024*1024){    //kb
+                    tmpSize = [NSString stringWithFormat:@"%.1fKB",size/1024.0];
+                }else if (size < 1024*1024*1024){   //mb
+                    tmpSize = [NSString stringWithFormat:@"%.1fMB",size/1024.0/1024.0];
+                }else{  //gb
+                    tmpSize = [NSString stringWithFormat:@"%.1fGB",size/1024.0/1024.0/1024.0];
+                }
+                cell.cacheLabel.text = tmpSize;
             }
         }
     }else{
@@ -200,11 +216,14 @@ static NSString *settingCell = @"settingCell";
         [self presentViewController:[[LoginViewController alloc]init] animated:YES completion:nil];
     }else if ([self.settingM.infos[indexPath.section][indexPath.row] isEqual:@"退出登录"]){
         [self exitLogin:self.settingM.infos[0][0][@"account_id"]];
+    }else if ([self.settingM.infos[indexPath.section][indexPath.row] isEqualToString:@"清除缓存"]){
+        [[SDImageCache sharedImageCache] clearDisk];
+        [[SDImageCache sharedImageCache] clearMemory];//可有可无
+        [self.settingView.tableView reloadData];
     }else{
         NSLog(@"没有用");
     }
 }
-
 - (void)exitLogin:(NSString *)accountid{
     UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"提示" message:@"确定退出登录？" preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {

@@ -13,7 +13,6 @@
 #import "FoodViewController.h"
 #import "HomeTableViewCell.h"
 #import "ManagerViewController.h"
-#import "NSString+URLEncode.h"
 #import "LoginViewController.h"
 #import <SWRevealViewController.h>
 #import <MBProgressHUD.h>
@@ -21,9 +20,7 @@
 #import <AFNetworking.h>
 #import <MJRefresh.h>
 
-@interface HomeViewController ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,UITextFieldDelegate>{
-    BOOL flag;      //判断是否编辑
-}
+@interface HomeViewController ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,UITextFieldDelegate>
 
 @property (nonatomic,strong)HomeView *homeView;
 @property (nonatomic,strong)MBProgressHUD *proHUD;
@@ -211,14 +208,15 @@ static NSString *homeID = @"homeCell";
 //            NSLog(@"%@",tmpArray[0][0][@"user_name"]);
         }
         NSLog(@"%@",self.foodOrders);
-        [OrderModel submitOrder:self.foodOrders];
+        [OrderModel orderWithsubmit:self.foodOrders];
     }else{
-//        NSLog(@"没有登录");
+        //如果没有登陆，跳到登陆页面
         [self presentViewController:[[LoginViewController alloc]init] animated:YES completion:nil];
     }
     
 }
 
+#pragma mark - tableView滑动事件
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
     if ([keyPath isEqualToString:@"contentOffset"]){
         CGPoint offset = [change[NSKeyValueChangeNewKey] CGPointValue];

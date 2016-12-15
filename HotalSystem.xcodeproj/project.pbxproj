@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		78055C391DFAA6A3008C269B /* ManagerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 78055C381DFAA6A3008C269B /* ManagerTableViewCell.m */; };
-		7807AC931E00220F004642DF /* NSString+URLEncode.m in Sources */ = {isa = PBXBuildFile; fileRef = 7807AC921E00220F004642DF /* NSString+URLEncode.m */; };
 		7807ACD51E003568004642DF /* OrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7807ACD41E003568004642DF /* OrderModel.m */; };
 		7807DCF31DD9DB0E00177994 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7807DCF21DD9DB0E00177994 /* MainViewController.m */; };
 		7807DCF51DD9DC6B00177994 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7807DCF41DD9DC6B00177994 /* Home.storyboard */; };
@@ -74,8 +73,6 @@
 		394389A9BACC77F376804BF5 /* Pods-HotalSystem.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HotalSystem.release.xcconfig"; path = "Pods/Target Support Files/Pods-HotalSystem/Pods-HotalSystem.release.xcconfig"; sourceTree = "<group>"; };
 		78055C371DFAA6A3008C269B /* ManagerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManagerTableViewCell.h; sourceTree = "<group>"; };
 		78055C381DFAA6A3008C269B /* ManagerTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManagerTableViewCell.m; sourceTree = "<group>"; };
-		7807AC911E00220F004642DF /* NSString+URLEncode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+URLEncode.h"; sourceTree = "<group>"; };
-		7807AC921E00220F004642DF /* NSString+URLEncode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+URLEncode.m"; sourceTree = "<group>"; };
 		7807ACD31E003568004642DF /* OrderModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderModel.h; sourceTree = "<group>"; };
 		7807ACD41E003568004642DF /* OrderModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderModel.m; sourceTree = "<group>"; };
 		7807DCEE1DD9DAA500177994 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Main/Setting/AppDelegate.h; sourceTree = "<group>"; };
@@ -198,8 +195,6 @@
 				7807DCEA1DD9DA1D00177994 /* Setting */,
 				7807DCF11DD9DB0E00177994 /* MainViewController.h */,
 				7807DCF21DD9DB0E00177994 /* MainViewController.m */,
-				7807AC911E00220F004642DF /* NSString+URLEncode.h */,
-				7807AC921E00220F004642DF /* NSString+URLEncode.m */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -733,7 +728,6 @@
 				7807DCF31DD9DB0E00177994 /* MainViewController.m in Sources */,
 				78B1DD811DFC52C40032E9C5 /* MenuTableViewCell.m in Sources */,
 				78C4A3051DFA4DA400F476E7 /* ManagerViewController.m in Sources */,
-				7807AC931E00220F004642DF /* NSString+URLEncode.m in Sources */,
 				7807DD011DD9DCA300177994 /* SettingViewController.m in Sources */,
 				78055C391DFAA6A3008C269B /* ManagerTableViewCell.m in Sources */,
 				78B27EA61DF8417100F188E2 /* LoginModel.m in Sources */,

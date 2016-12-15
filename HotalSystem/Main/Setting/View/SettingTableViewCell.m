@@ -68,6 +68,11 @@
         }
         if ([reuseIdentifier isEqualToString:@"settingCell"]) {
             self.height = 50;
+            self.cacheLabel = [[UILabel alloc]initWithFrame:CGRectMake(kWidth - 100, 5, 50, 45)];
+            [self.cacheLabel setTextAlignment:NSTextAlignmentRight];
+            [self.cacheLabel setTextColor:[UIColor blackColor]];
+            [self.contentView addSubview:self.cacheLabel];
+            [self.cacheLabel setFont:[UIFont systemFontOfSize:12.0]];
         }
     }
     return self;

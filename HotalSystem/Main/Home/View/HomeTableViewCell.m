@@ -28,7 +28,7 @@
 - (UIButton *)addBtn{
     if (_addBtn == nil) {
         _addBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_addBtn setFrame:CGRectMake(kWidth - 40, 60, 30, 30)];
+        [_addBtn setFrame:CGRectMake(kWidth - 40, self.height - 40, 30, 30)];
         [_addBtn setBackgroundColor:[UIColor blueColor]];
         [_addBtn setTitle:@"+" forState:UIControlStateNormal];
         _addBtn.layer.masksToBounds = YES;
@@ -40,7 +40,7 @@
 
 - (UILabel *)countLabel{
     if (_countLabel == nil) {
-        _countLabel = [[UILabel alloc]initWithFrame:CGRectMake(kWidth - 60, 60, 20, kWidth/5 - 50)];
+        _countLabel = [[UILabel alloc]initWithFrame:CGRectMake(kWidth - 60, self.height - 40, 20, 30)];
         [_countLabel setFont:[UIFont systemFontOfSize:12.0]];
         [_countLabel setTextColor:[UIColor blackColor]];
         
@@ -53,7 +53,7 @@
 - (UIButton *)reduceBtn{
     if (_reduceBtn == nil) {
         _reduceBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_reduceBtn setFrame:CGRectMake(kWidth - 90, 60, 30, 30)];
+        [_reduceBtn setFrame:CGRectMake(kWidth - 90, self.height - 40, 30, 30)];
         [_reduceBtn setBackgroundColor:[UIColor blueColor]];
         [_reduceBtn setTitle:@"-" forState:UIControlStateNormal];
         _reduceBtn.layer.masksToBounds = YES;
