@@ -17,5 +17,6 @@
 @property (nonatomic ,strong) UIButton     *cancelBtn;      //取消按钮
 @property (nonatomic ,assign) CGFloat       height;         //高度
 //@property (nonatomic ,strong) UILabel      *buyerLabel;     //购买者
+@property (nonatomic ,strong) UILabel      *cancelOrConfirm;//取消或者确认
 @property (nonatomic ,strong) UILabel      *foodNameLabel;  //
 @end

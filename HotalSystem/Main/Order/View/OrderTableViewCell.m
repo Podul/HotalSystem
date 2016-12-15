@@ -53,6 +53,17 @@
     return _priceLabel;
 }
 
+- (UILabel *)cancelOrConfirm{
+    if (_cancelOrConfirm == nil) {
+        _cancelOrConfirm = [[UILabel alloc]initWithFrame:CGRectMake(kWidth - 170, 65, 150, 20)];
+        [_cancelOrConfirm setTextColor:[UIColor redColor]];
+        [_cancelOrConfirm setTextAlignment:NSTextAlignmentRight];
+        [_cancelOrConfirm setFont:[UIFont systemFontOfSize:14.0]];
+        [self.contentView addSubview:_cancelOrConfirm];
+    }
+    return _cancelOrConfirm;
+}
+
 - (UIButton *)confirmBtn{
     if (_confirmBtn == nil) {
         _confirmBtn = [UIButton buttonWithType:UIButtonTypeCustom];

@@ -182,18 +182,40 @@ static NSString *cellID = @"orderCell";
     cell.foodNameLabel.text = str;
     cell.nameLabel.text = [NSString stringWithFormat:@"用户 %@ 购买了",self.orderInfos[indexPath.row][@"account_name"]];
     cell.priceLabel.text = [NSString stringWithFormat:@"共计：%@",self.orderInfos[indexPath.row][@"price"]];
-    NSLog(@"%@",self.orderInfos[indexPath.row]);
-    if (isLogin && isAdmin) {
-        [cell.confirmBtn setTitle:@"确认订单" forState:UIControlStateNormal];
-    }else if (isLogin && !isAdmin){
-        [cell.confirmBtn setTitle:@"提交订单" forState:UIControlStateNormal];
+    BOOL isCancel = [self.orderInfos[indexPath.row][@"is_cancel"] isEqualToString:@"1"];
+    BOOL isConfirm = [self.orderInfos[indexPath.row][@"is_confirm"] isEqualToString:@"1"];
+    [cell.confirmBtn setHidden:YES];
+    [cell.confirmBtn setUserInteractionEnabled:NO];
+    [cell.cancelBtn setUserInteractionEnabled:NO];
+    [cell.cancelBtn setHidden:YES];
+    [cell.cancelOrConfirm setHidden:NO];
+    if (!isCancel && !isConfirm) {
+        [cell.cancelOrConfirm setHidden:YES];
+        [cell.confirmBtn setHidden:NO];
+        [cell.cancelBtn setHidden:NO];
+        [cell.confirmBtn setUserInteractionEnabled:YES];
+        [cell.cancelBtn setUserInteractionEnabled:YES];
+        if (isLogin && isAdmin) {
+            [cell.confirmBtn setTitle:@"确认订单" forState:UIControlStateNormal];
+        }else if (isLogin && !isAdmin){
+            [cell.confirmBtn setTitle:@"提交订单" forState:UIControlStateNormal];
+        }
+        [cell.confirmBtn setTag:indexPath.row + 10];
+        [cell.confirmBtn addTarget:self action:@selector(confirm:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [cell.cancelBtn setTitle:@"取消订单" forState:UIControlStateNormal];
+        [cell.cancelBtn setTag:indexPath.row + 100];
+        [cell.cancelBtn addTarget:self action:@selector(cancel:) forControlEvents:UIControlEventTouchUpInside];
+    }else if (isCancel && !isConfirm){
+//        [cell.confirmBtn setTitle:@"该订单已取消" forState:UIControlStateNormal];
+        cell.cancelOrConfirm.text = @"该订单已取消";
+    }else if (!isCancel && isConfirm){
+//        [cell.confirmBtn setTitle:@"该订单已确认" forState:UIControlStateNormal];
+        cell.cancelOrConfirm.text = @"该订单已确认";
+    }else{
+        
     }
-    [cell.confirmBtn setTag:indexPath.row + 10];
-    [cell.confirmBtn addTarget:self action:@selector(confirm:) forControlEvents:UIControlEventTouchUpInside];
     
-    [cell.cancelBtn setTitle:@"取消订单" forState:UIControlStateNormal];
-    [cell.cancelBtn setTag:indexPath.row + 100];
-    [cell.cancelBtn addTarget:self action:@selector(cancel:) forControlEvents:UIControlEventTouchUpInside];
     
     tableView.rowHeight = cell.height;
     return cell;
@@ -209,13 +231,14 @@ static NSString *cellID = @"orderCell";
     }
     UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"提示" message:alertStr preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        if (isLogin && !isAdmin) {
-            //用户提交
-            [OrderModel orderWithUserConfirm:self.orderInfos[index][@"order_id"]];
-        }else if (isLogin && isAdmin){
-            //管理员提交
-            [OrderModel orderWithAdminConfirm:self.orderInfos[index][@"order_id"]];
-        }
+        [OrderModel orderWithConfirm:self.orderInfos[index][@"order_id"]];
+//        if (isLogin && !isAdmin) {
+//            //用户提交
+//            [OrderModel orderWithUserConfirm:self.orderInfos[index][@"order_id"]];
+//        }else if (isLogin && isAdmin){
+//            //管理员提交
+//            [OrderModel orderWithAdminConfirm:self.orderInfos[index][@"order_id"]];
+//        }
     }];
     [okAction setValue:[UIColor redColor] forKey:@"_titleTextColor"];
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
@@ -229,13 +252,14 @@ static NSString *cellID = @"orderCell";
     NSInteger index = sender.tag - 100;
     UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"提示" message:@"确定取消该订单？" preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        if (isLogin && !isAdmin) {
-            //用户提交
-            [OrderModel orderWithUserCancel:self.orderInfos[index][@"order_id"]];
-        }else if (isLogin && isAdmin){
-            //管理员提交
-            [OrderModel orderWithAdminCancel:self.orderInfos[index][@"order_id"]];
-        }
+        [OrderModel orderWithCancel:self.orderInfos[index][@"order_id"]];
+//        if (isLogin && !isAdmin) {
+//            //用户提交
+//            [OrderModel orderWithUserCancel:self.orderInfos[index][@"order_id"]];
+//        }else if (isLogin && isAdmin){
+//            //管理员提交
+//            [OrderModel orderWithAdminCancel:self.orderInfos[index][@"order_id"]];
+//        }
     }];
     [okAction setValue:[UIColor redColor] forKey:@"_titleTextColor"];
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"考虑考虑" style:UIAlertActionStyleCancel handler:nil];
