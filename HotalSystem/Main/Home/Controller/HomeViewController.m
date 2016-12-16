@@ -353,7 +353,6 @@ static NSString *homeID = @"homeCell";
         }
     }
     
-//    NSLog(@"%@",self.foodOrders);
     
     //显示或者隐藏提交订单
     if (self.foodOrders.count == 0) {
