@@ -19,7 +19,7 @@
     BOOL isAdmin;  //是否管理员
 }
 @property (nonatomic ,strong) OrderView *orderView;
-@property (nonatomic ,strong) NSArray *orderInfos;
+@property (nonatomic ,strong) NSArray *orderInfos;  //订单信息
 @property (nonatomic ,strong) UIButton *loginBtn;   //登陆按钮
 @property (nonatomic ,strong) NSArray *accountInfos;    //账户信息
 
@@ -60,16 +60,49 @@ static NSString *cellID = @"orderCell";
     }
     return _accountInfos;
 }
-
+#pragma mark - 接收各种通知
 - (void)createNotif{
+    //查询成功
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(querySuccess:) name:@"querySuccess" object:@"Podul"];
+    //查询失败
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(queryError:) name:@"queryError" object:@"Podul"];
+    //取消订单成功
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(cancelSuccess:) name:@"cancelSuccess" object:@"Podul"];
+    //取消订单失败
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(cancelError:) name:@"cancelError" object:@"Podul"];
+    //提交订单成功
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(confirmSuccess:) name:@"confirmSuccess" object:@"Podul"];
+    //提交订单失败
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(confirmError:) name:@"confirmError" object:@"Podul"];
+}
+#pragma mark - 取消订单成功
+- (void)cancelSuccess:(NSNotification *)sender{
+    //需要重新获取一次列表
+    [OrderModel orderWithQuery:self.accountInfos[0][0][@"account_id"]];
+}
+#pragma mark - 取消订单失败
+- (void)cancelError:(NSNotification *)sender{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.orderView.proHUD.mode = MBProgressHUDModeText;
+        [OrderModel orderWithQuery:self.accountInfos[0][0][@"account_id"]];
+    });
+}
+#pragma mark - 提交订单成功
+- (void)confirmSuccess:(NSNotification *)sender{
+    //需要重新获取一次列表
+    [OrderModel orderWithQuery:self.accountInfos[0][0][@"account_id"]];
+}
+#pragma mark - 提交订单失败
+- (void)confirmError:(NSNotification *)sender{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.orderView.proHUD.mode = MBProgressHUDModeText;
+        self.orderView.proHUD.label.text = @"提交订单失败";
+    });
 }
 
 #pragma mark - 查询成功
 - (void)querySuccess:(NSNotification *)sender{
     self.orderInfos = sender.userInfo[@"order_info"];
-//    NSLog(@"%@",self.orderInfos);
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.orderView.tableView reloadData];
         [self.orderView.proHUD hideAnimated:YES];
@@ -97,7 +130,6 @@ static NSString *cellID = @"orderCell";
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     //判断是否登陆，是否管理员
-//    NSString *path = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/setting.plist"];
     if ([[NSFileManager defaultManager] fileExistsAtPath:SPATH]) {
         self.accountInfos = [NSArray arrayWithContentsOfFile:SPATH];
         isLogin = YES;
@@ -105,7 +137,6 @@ static NSString *cellID = @"orderCell";
             //是管理员
             isAdmin = YES;
         }else{
-            
             //不是管理员
             isAdmin = NO;
         }
@@ -114,7 +145,6 @@ static NSString *cellID = @"orderCell";
         //没有登陆
         isLogin = NO;
     }
-    
     //如果登陆了才能加载数据
     if (isLogin) {
         [self.orderView.proHUD showAnimated:YES];
@@ -174,7 +204,7 @@ static NSString *cellID = @"orderCell";
     for (int i=1; i<infos.count; i++) {
         NSString *name = self.orderInfos[indexPath.row][@"info"][i][@"food_name"];
         [str appendFormat:@"、%@",name];
-        if (i >= 1) {
+        if (i >= 2) {
             [str appendString:@"等"];
             break;
         }
@@ -182,6 +212,9 @@ static NSString *cellID = @"orderCell";
     cell.foodNameLabel.text = str;
     cell.nameLabel.text = [NSString stringWithFormat:@"用户 %@ 购买了",self.orderInfos[indexPath.row][@"account_name"]];
     cell.priceLabel.text = [NSString stringWithFormat:@"共计：%@",self.orderInfos[indexPath.row][@"price"]];
+    NSInteger order = [self.orderInfos[indexPath.row][@"order_id"] integerValue];
+    cell.orderLabel.text = [NSString stringWithFormat:@"订单号：%09ld",order];
+    
     BOOL isCancel = [self.orderInfos[indexPath.row][@"is_cancel"] isEqualToString:@"1"];
     BOOL isConfirm = [self.orderInfos[indexPath.row][@"is_confirm"] isEqualToString:@"1"];
     [cell.confirmBtn setHidden:YES];
@@ -207,15 +240,13 @@ static NSString *cellID = @"orderCell";
         [cell.cancelBtn setTag:indexPath.row + 100];
         [cell.cancelBtn addTarget:self action:@selector(cancel:) forControlEvents:UIControlEventTouchUpInside];
     }else if (isCancel && !isConfirm){
-//        [cell.confirmBtn setTitle:@"该订单已取消" forState:UIControlStateNormal];
         cell.cancelOrConfirm.text = @"该订单已取消";
     }else if (!isCancel && isConfirm){
-//        [cell.confirmBtn setTitle:@"该订单已确认" forState:UIControlStateNormal];
         cell.cancelOrConfirm.text = @"该订单已确认";
     }else{
-        
+        //既提交又取消
+        cell.cancelOrConfirm.text = @"未知错误，请联系管理员";
     }
-    
     
     tableView.rowHeight = cell.height;
     return cell;
@@ -231,14 +262,12 @@ static NSString *cellID = @"orderCell";
     }
     UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"提示" message:alertStr preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.orderView.proHUD setMode:MBProgressHUDModeIndeterminate];
+            [self.orderView.proHUD.label setText:@"提交订单中..."];
+            [self.orderView.proHUD showAnimated:YES];
+        });
         [OrderModel orderWithConfirm:self.orderInfos[index][@"order_id"]];
-//        if (isLogin && !isAdmin) {
-//            //用户提交
-//            [OrderModel orderWithUserConfirm:self.orderInfos[index][@"order_id"]];
-//        }else if (isLogin && isAdmin){
-//            //管理员提交
-//            [OrderModel orderWithAdminConfirm:self.orderInfos[index][@"order_id"]];
-//        }
     }];
     [okAction setValue:[UIColor redColor] forKey:@"_titleTextColor"];
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
@@ -252,14 +281,12 @@ static NSString *cellID = @"orderCell";
     NSInteger index = sender.tag - 100;
     UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"提示" message:@"确定取消该订单？" preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.orderView.proHUD setMode:MBProgressHUDModeIndeterminate];
+            [self.orderView.proHUD.label setText:@"取消订单中..."];
+            [self.orderView.proHUD showAnimated:YES];
+        });
         [OrderModel orderWithCancel:self.orderInfos[index][@"order_id"]];
-//        if (isLogin && !isAdmin) {
-//            //用户提交
-//            [OrderModel orderWithUserCancel:self.orderInfos[index][@"order_id"]];
-//        }else if (isLogin && isAdmin){
-//            //管理员提交
-//            [OrderModel orderWithAdminCancel:self.orderInfos[index][@"order_id"]];
-//        }
     }];
     [okAction setValue:[UIColor redColor] forKey:@"_titleTextColor"];
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"考虑考虑" style:UIAlertActionStyleCancel handler:nil];

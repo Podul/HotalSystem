@@ -39,7 +39,7 @@
                                  @"menu_id":menuid
                                  };
     [manager POST:@"https://www.podul.com.cn/api/menu.php" parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSLog(@"%@",responseObject);
+//        NSLog(@"%@",responseObject);
         if ([responseObject[@"result"] isEqual:@1]) {
             [[NSNotificationCenter defaultCenter]postNotificationName:@"loadFoodInfoSuccess" object:@"Podul" userInfo:@{@"food_info":responseObject[@"food_info"],@"menu_name":menuName}];
         }else{

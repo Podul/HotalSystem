@@ -45,6 +45,7 @@ static NSString *managerID = @"managerCell";
 - (UINavigationBar *)navBar{
     if (_navBar == nil) {
         _navBar = [[UINavigationBar alloc]initWithFrame:CGRectMake(0, 0, kWidth, 64)];
+        [_navBar setBackgroundColor:[UIColor whiteColor]];
         [self.view addSubview:_navBar];
     }
     return _navBar;

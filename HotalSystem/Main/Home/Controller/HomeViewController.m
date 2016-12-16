@@ -9,6 +9,7 @@
 #import "HomeViewController.h"
 #import "HomeView.h"
 #import "HomeModel.h"
+#import "LeftModel.h"
 #import "OrderModel.h"
 #import "FoodViewController.h"
 #import "HomeTableViewCell.h"
@@ -164,6 +165,7 @@ static NSString *homeID = @"homeCell";
     //下拉刷新
     self.homeView.tableView.mj_header= [MJRefreshStateHeader headerWithRefreshingBlock:^{
         [HomeModel foodInfo];
+        [LeftModel menuInfo];   //获取菜单
     }];
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self.homeView createHomeView:self];
@@ -172,6 +174,8 @@ static NSString *homeID = @"homeCell";
     [self.proHUD showAnimated:YES];
     //打开就加载数据
     [HomeModel foodInfo];
+    [LeftModel menuInfo];   //获取菜单
+    
     [self.homeView.submitView setHidden:YES];
 }
 #pragma mark - 提交订单

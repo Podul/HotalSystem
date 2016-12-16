@@ -16,19 +16,19 @@
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]init];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     NSDictionary *parameters = @{
-                                 @"action"  : @"userCancelOrder",
+                                 @"action"  : @"cancelOrder",
                                  @"order_id": orderid
                                  };
     [manager POST:@"https://www.podul.com.cn/api/order.php" parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSLog(@"%@",responseObject);
         if ([responseObject[@"result"] isEqual:@1]) {
-            //            [[NSNotificationCenter defaultCenter]postNotificationName:@"querySuccess" object:@"Podul" userInfo:@{@"order_info":responseObject[@"order_info"]}];
+                        [[NSNotificationCenter defaultCenter]postNotificationName:@"cancelSuccess" object:@"Podul"];
         }else{
-            //            [[NSNotificationCenter defaultCenter]postNotificationName:@"queryError" object:@"Podul"];
+                        [[NSNotificationCenter defaultCenter]postNotificationName:@"cancelError" object:@"Podul"];
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"%@",error);
-        //        [[NSNotificationCenter defaultCenter]postNotificationName:@"queryError" object:@"Podul"];
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"cancelError" object:@"Podul"];
     }];
 }
 
@@ -37,19 +37,19 @@
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]init];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     NSDictionary *parameters = @{
-                                 @"action"  : @"userConfirmOrder",
+                                 @"action"  : @"confirmOrder",
                                  @"order_id": orderid
                                  };
     [manager POST:@"https://www.podul.com.cn/api/order.php" parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                 NSLog(@"%@",responseObject);
         if ([responseObject[@"result"] isEqual:@1]) {
-//            [[NSNotificationCenter defaultCenter]postNotificationName:@"querySuccess" object:@"Podul" userInfo:@{@"order_info":responseObject[@"order_info"]}];
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"confirmSuccess" object:@"Podul"];
         }else{
-//            [[NSNotificationCenter defaultCenter]postNotificationName:@"queryError" object:@"Podul"];
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"confirmError" object:@"Podul"];
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"%@",error);
-//        [[NSNotificationCenter defaultCenter]postNotificationName:@"queryError" object:@"Podul"];
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"confirmError" object:@"Podul"];
     }];
 }
 
@@ -76,7 +76,6 @@
 
 #pragma mark - 提交订单信息
 + (void)orderWithsubmit:(NSArray *)foods{
-//    NSLog(@"%@",foods);
     //将foods分解
     NSString *accountid = foods[0][@"account_id"];
     NSMutableArray *foodNames = [NSMutableArray array];

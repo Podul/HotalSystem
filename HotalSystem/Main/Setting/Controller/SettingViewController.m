@@ -165,7 +165,8 @@ static NSString *settingCell = @"settingCell";
     if (isLogin) {
         if (indexPath.section == 0 && indexPath.row == 0) {
             cell = [tableView dequeueReusableCellWithIdentifier:userCell forIndexPath:indexPath];
-            cell.loginLabel.text = array[indexPath.row][@"user_name"];
+            cell.loginLabel.text = [array[indexPath.row][@"user_name"] lowercaseString];
+            
             [cell.icon sd_setImageWithURL:[NSURL URLWithString:array[indexPath.row][@"icon_url"]] placeholderImage:[UIImage imageNamed:@"noIcon"]];
             cell.signLabel.text = array[indexPath.row][@"signature"];
         }else{

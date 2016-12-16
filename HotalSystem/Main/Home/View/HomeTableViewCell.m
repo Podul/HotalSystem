@@ -28,11 +28,14 @@
 - (UIButton *)addBtn{
     if (_addBtn == nil) {
         _addBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_addBtn setFrame:CGRectMake(kWidth - 40, self.height - 40, 30, 30)];
-        [_addBtn setBackgroundColor:[UIColor blueColor]];
+        [_addBtn setFrame:CGRectMake(kWidth - 40, self.height - 40, 28, 28)];
+        [_addBtn setBackgroundColor:[UIColor whiteColor]];
+        [_addBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [_addBtn setTitle:@"+" forState:UIControlStateNormal];
         _addBtn.layer.masksToBounds = YES;
-        _addBtn.layer.cornerRadius = 15.0;
+        _addBtn.layer.cornerRadius = 14.0;
+        _addBtn.layer.borderWidth = 1.0;
+        _addBtn.layer.borderColor = [[UIColor blackColor]CGColor];
         [self addSubview:_addBtn];
     }
     return _addBtn;
@@ -53,11 +56,14 @@
 - (UIButton *)reduceBtn{
     if (_reduceBtn == nil) {
         _reduceBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_reduceBtn setFrame:CGRectMake(kWidth - 90, self.height - 40, 30, 30)];
-        [_reduceBtn setBackgroundColor:[UIColor blueColor]];
+        [_reduceBtn setFrame:CGRectMake(kWidth - 90, self.height - 40, 28, 28)];
+        [_reduceBtn setBackgroundColor:[UIColor whiteColor]];
         [_reduceBtn setTitle:@"-" forState:UIControlStateNormal];
+        [_reduceBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         _reduceBtn.layer.masksToBounds = YES;
-        _reduceBtn.layer.cornerRadius = 15.0;
+        _reduceBtn.layer.borderWidth = 1.0;
+        _reduceBtn.layer.borderColor = [[UIColor blackColor]CGColor];
+        _reduceBtn.layer.cornerRadius = 14.0;
         [self addSubview:_reduceBtn];
     }
     return _reduceBtn;

@@ -28,7 +28,8 @@
 
 - (NSArray *)menus{
     if (_menus == nil) {
-        _menus = [[NSArray alloc]init];
+        //获取保存在本地的菜单
+        _menus = [NSArray arrayWithContentsOfFile:[NSHomeDirectory() stringByAppendingPathComponent:@"Documents/menus.plist"]];
     }
     return _menus;
 }
@@ -40,28 +41,24 @@
     }
     return _leftModel;
 }
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    //接收通知
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(menu:) name:@"menu" object:@"Podul"];
-}
-- (void)menu:(NSNotification *)sender{
-    self.menus = sender.userInfo[@"menus"];
-    [self.leftView.tableView reloadData];
-}
+//- (void)menu:(NSNotification *)sender{
+//    self.menus = sender.userInfo[@"menus"];
+//    [self.leftView.tableView reloadData];
+//}
 
--(void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
-    //清除通知
-    [[NSNotificationCenter defaultCenter]removeObserver:self];
-}
-
+//- (void)dealloc{
+//    //清除通知
+//    [[NSNotificationCenter defaultCenter]removeObserver:self];
+//}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self.leftView createLeftView:self];
-    [LeftModel menuInfo];
+    //接收通知
+//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(menu:) name:@"menu" object:@"Podul"];
+//    [LeftModel menuInfo];
+    
 }
 
 #pragma mark - UITableViewDataSource
