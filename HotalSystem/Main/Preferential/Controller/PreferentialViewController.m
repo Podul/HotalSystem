@@ -7,22 +7,32 @@
 //
 
 #import "PreferentialViewController.h"
+#import "PreView.h"
 
 @interface PreferentialViewController ()
-
+@property (nonatomic,strong)PreView *preView;
 @end
 
 @implementation PreferentialViewController
+- (PreView *)preView{
+    if (_preView == nil) {
+        _preView = [[PreView alloc]initWithFrame:self.view.frame];
+        [self.view addSubview:_preView];
+    }
+    return _preView;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, kWidth, kHeight)];
-    label.text = @"暂无优惠信息！";
-    label.textAlignment = NSTextAlignmentCenter;
-    label.textColor = [UIColor blackColor];
-    [self.view addSubview:label];
+    [self.preView createPreView:self];
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    //如果没有内容
+    self.preView.noInfoLabel.text = @"暂无优惠信息";
+    [self.preView.noInfoLabel setHidden:NO];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -30,14 +40,5 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

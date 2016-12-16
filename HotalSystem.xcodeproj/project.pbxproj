@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		58FD704A1E03B76400F1BA47 /* UserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58FD70491E03B76400F1BA47 /* UserViewController.m */; };
+		58FD704D1E03BC0000F1BA47 /* PreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 58FD704C1E03BC0000F1BA47 /* PreView.m */; };
 		78055C391DFAA6A3008C269B /* ManagerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 78055C381DFAA6A3008C269B /* ManagerTableViewCell.m */; };
 		7807ACD51E003568004642DF /* OrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7807ACD41E003568004642DF /* OrderModel.m */; };
 		7807DCF31DD9DB0E00177994 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7807DCF21DD9DB0E00177994 /* MainViewController.m */; };
@@ -71,6 +73,10 @@
 		0B6824CCE4159BBE72744E75 /* libPods-HotalSystem.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HotalSystem.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0CC41B2E4867CF2066A1EEAC /* Pods-HotalSystem.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HotalSystem.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HotalSystem/Pods-HotalSystem.debug.xcconfig"; sourceTree = "<group>"; };
 		394389A9BACC77F376804BF5 /* Pods-HotalSystem.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HotalSystem.release.xcconfig"; path = "Pods/Target Support Files/Pods-HotalSystem/Pods-HotalSystem.release.xcconfig"; sourceTree = "<group>"; };
+		58FD70481E03B76400F1BA47 /* UserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserViewController.h; sourceTree = "<group>"; };
+		58FD70491E03B76400F1BA47 /* UserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserViewController.m; sourceTree = "<group>"; };
+		58FD704B1E03BC0000F1BA47 /* PreView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PreView.h; path = HotalSystem/Main/Setting/Controller/PreView.h; sourceTree = SOURCE_ROOT; };
+		58FD704C1E03BC0000F1BA47 /* PreView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PreView.m; path = HotalSystem/Main/Setting/Controller/PreView.m; sourceTree = SOURCE_ROOT; };
 		78055C371DFAA6A3008C269B /* ManagerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManagerTableViewCell.h; sourceTree = "<group>"; };
 		78055C381DFAA6A3008C269B /* ManagerTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManagerTableViewCell.m; sourceTree = "<group>"; };
 		7807ACD31E003568004642DF /* OrderModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderModel.h; sourceTree = "<group>"; };
@@ -319,6 +325,8 @@
 		7807DCE91DD9DA1D00177994 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				58FD704B1E03BC0000F1BA47 /* PreView.h */,
+				58FD704C1E03BC0000F1BA47 /* PreView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -339,6 +347,8 @@
 			children = (
 				7807DCFF1DD9DCA300177994 /* SettingViewController.h */,
 				7807DD001DD9DCA300177994 /* SettingViewController.m */,
+				58FD70481E03B76400F1BA47 /* UserViewController.h */,
+				58FD70491E03B76400F1BA47 /* UserViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -714,6 +724,7 @@
 				787F97EB1DDE87A800216425 /* SettingTableViewCell.m in Sources */,
 				78FF03F31DF1966A00082157 /* MenuViewController.m in Sources */,
 				7845A2141DE2E5FB0038335E /* SettingModel.m in Sources */,
+				58FD704D1E03BC0000F1BA47 /* PreView.m in Sources */,
 				7845A20F1DE2D8D70038335E /* FoodView.m in Sources */,
 				78374FB11DF0FED300499E0C /* OrderTableViewCell.m in Sources */,
 				789493F81DDD5E8C0049A9FE /* HomeTableViewCell.m in Sources */,
@@ -732,6 +743,7 @@
 				78055C391DFAA6A3008C269B /* ManagerTableViewCell.m in Sources */,
 				78B27EA61DF8417100F188E2 /* LoginModel.m in Sources */,
 				78EB76EE1DF1545000D9885C /* LeftView.m in Sources */,
+				58FD704A1E03B76400F1BA47 /* UserViewController.m in Sources */,
 				78C4A3081DFAA3D400F476E7 /* ManagerModel.m in Sources */,
 				78FF03FC1DF19BAD00082157 /* MenuView.m in Sources */,
 				78455AF91DD9CE6000F023C3 /* main.m in Sources */,

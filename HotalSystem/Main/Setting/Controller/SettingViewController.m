@@ -10,6 +10,7 @@
 #import "SettingView.h"
 #import "SettingModel.h"
 #import "SettingTableViewCell.h"
+#import "UserViewController.h"
 #import "LoginViewController.h"
 #import <SDImageCache.h>
 #import <SWRevealViewController.h>
@@ -129,7 +130,6 @@ static NSString *settingCell = @"settingCell";
     }
     
     //保存到plist文件
-//    NSString *path = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/setting.plist"];
     [self.settingM.infos writeToFile:SPATH atomically:YES];
     dispatch_async(dispatch_get_main_queue(), ^{
         //刷新单元格
@@ -212,18 +212,25 @@ static NSString *settingCell = @"settingCell";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    if ([self.settingM.infos[indexPath.section][indexPath.row] isEqual:@"登录"]) {
-        [self presentViewController:[[LoginViewController alloc]init] animated:YES completion:nil];
-    }else if ([self.settingM.infos[indexPath.section][indexPath.row] isEqual:@"退出登录"]){
-        [self exitLogin:self.settingM.infos[0][0][@"account_id"]];
-    }else if ([self.settingM.infos[indexPath.section][indexPath.row] isEqualToString:@"清除缓存"]){
+    if (isLogin) {
+        if (indexPath.section == 0 && indexPath.section == 0) {
+            [self presentViewController:[[UserViewController alloc]init] animated:YES completion:nil];
+        }else{
+            if ([self.settingM.infos[indexPath.section][indexPath.row] isEqual:@"退出登录"]){
+                [self exitLogin:self.settingM.infos[0][0][@"account_id"]];
+            }
+        }
+    }else{
+        if ([self.settingM.infos[indexPath.section][indexPath.row] isEqual:@"登录"]) {
+            [self presentViewController:[[LoginViewController alloc]init] animated:YES completion:nil];
+        }
+    }
+    if ([self.settingM.infos[indexPath.section][indexPath.row] isEqualToString:@"清除缓存"]){
         [[SDImageCache sharedImageCache] clearDisk];
         [[SDImageCache sharedImageCache] clearMemory];//可有可无
         [self.settingView.tableView reloadData];
-    }else{
-        NSLog(@"没有用");
     }
+    
 }
 - (void)exitLogin:(NSString *)accountid{
     UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"提示" message:@"确定退出登录？" preferredStyle:UIAlertControllerStyleAlert];

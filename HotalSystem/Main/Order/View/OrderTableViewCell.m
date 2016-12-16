@@ -17,7 +17,7 @@
 
 - (UIImageView *)smallIcon{
     if (_smallIcon == nil) {
-        _smallIcon = [[UIImageView alloc]initWithFrame:CGRectMake(5, 5, 60, 60)];
+        _smallIcon = [[UIImageView alloc]initWithFrame:CGRectMake(15, 5, 60, 60)];
         
         [self.contentView addSubview:_smallIcon];
     }
@@ -26,7 +26,7 @@
 
 - (UILabel *)nameLabel{
     if (_nameLabel == nil) {
-        _nameLabel = [[UILabel alloc]initWithFrame:CGRectMake(80, 5, kWidth/2, 30)];
+        _nameLabel = [[UILabel alloc]initWithFrame:CGRectMake(95, 5, kWidth/2, 30)];
         [_nameLabel setFont:[UIFont systemFontOfSize:16.0]];
         [self.contentView addSubview:_nameLabel];
     }
@@ -35,7 +35,7 @@
 
 - (UILabel *)foodNameLabel{
     if (_foodNameLabel == nil) {
-        _foodNameLabel = [[UILabel alloc]initWithFrame:CGRectMake(80, 35, kWidth/2, 40)];
+        _foodNameLabel = [[UILabel alloc]initWithFrame:CGRectMake(95, 35, kWidth/2, 40)];
         [_foodNameLabel setFont:[UIFont systemFontOfSize:12.0]];
         [_foodNameLabel setTextColor:[UIColor blackColor]];
         [self.contentView addSubview:_foodNameLabel];
@@ -70,8 +70,7 @@
         [_cancelOrConfirm setTextAlignment:NSTextAlignmentRight];
         [_cancelOrConfirm setFont:[UIFont systemFontOfSize:14.0]];
         [_cancelOrConfirm setTextColor:[UIColor colorWithRed:96.0/255.0 green:96.0/255.0 blue:96.0/255.0 alpha:1.0]];
-        [_cancelOrConfirm setTextAlignment:NSTextAlignmentLeft];
-//        _cancelOrConfirm.numberOfLines = 0;
+        [_cancelOrConfirm setTextAlignment:NSTextAlignmentRight];
         [self.contentView addSubview:_cancelOrConfirm];
     }
     return _cancelOrConfirm;

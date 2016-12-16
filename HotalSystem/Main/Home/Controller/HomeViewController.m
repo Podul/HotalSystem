@@ -281,14 +281,13 @@ static NSString *homeID = @"homeCell";
     NSString *countStr = self.orders[sender.tag - 100][@"count"];
     if ([countStr isEqualToString:@"99"]) {
         [self.orders[sender.tag - 100] setValue:@"99" forKey:@"count"];
-        [self.orders[sender.tag - 100] setValue:@"" forKey:@"food_id"];
         [self alert];
     }else{
         [self.orders[sender.tag - 100] setValue:[NSString stringWithFormat:@"%ld",[countStr integerValue] + 1] forKey:@"count"];
         [self.orders[sender.tag - 100] setValue:self.foods[sender.tag - 100][@"food_id"] forKey:@"food_id"];
         [self.homeView.tableView reloadData];
     }
-    
+    NSLog(@"%@",self.orders);
     NSMutableString *tmpStr = [NSMutableString stringWithFormat:@"%@",self.foods[sender.tag - 100][@"price"]];
     NSString *tmpPrice = [tmpStr stringByReplacingOccurrencesOfString:@"元" withString:@""];
     
@@ -352,7 +351,6 @@ static NSString *homeID = @"homeCell";
             [self.foodOrders removeObjectAtIndex:i];
         }
     }
-    
     
     //显示或者隐藏提交订单
     if (self.foodOrders.count == 0) {

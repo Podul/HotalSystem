@@ -22,6 +22,7 @@
 @property (nonatomic ,strong) NSArray *orderInfos;  //订单信息
 @property (nonatomic ,strong) UIButton *loginBtn;   //登陆按钮
 @property (nonatomic ,strong) NSArray *accountInfos;    //账户信息
+@property (nonatomic ,strong) UILabel *noOrderLabel;    //没有订单时显示
 
 @end
 static NSString *cellID = @"orderCell";
@@ -60,6 +61,20 @@ static NSString *cellID = @"orderCell";
     }
     return _accountInfos;
 }
+
+- (UILabel *)noOrderLabel{
+    if (_noOrderLabel == nil) {
+        _noOrderLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 150, 30)];
+        [_noOrderLabel setTextAlignment:NSTextAlignmentCenter];
+        [_noOrderLabel setCenter:self.orderView.center];
+        _noOrderLabel.text = @"暂无订单信息";
+        [_noOrderLabel setTextColor:[UIColor colorWithRed:96.0/255.0 green:96.0/255.0 blue:96.0/255.0 alpha:1.0]];
+        [_noOrderLabel setHidden:YES];  //默认隐藏
+        [self.orderView addSubview:_noOrderLabel];
+    }
+    return _noOrderLabel;
+}
+
 #pragma mark - 接收各种通知
 - (void)createNotif{
     //查询成功
@@ -107,6 +122,11 @@ static NSString *cellID = @"orderCell";
         [self.orderView.tableView reloadData];
         [self.orderView.proHUD hideAnimated:YES];
         [self.orderView.tableView.mj_header endRefreshing];
+        if (self.orderInfos.count == 0) {
+            [self.noOrderLabel setHidden:NO];
+        }else{
+            [self.noOrderLabel setHidden:YES];
+        }
     });
 }
 
@@ -210,7 +230,7 @@ static NSString *cellID = @"orderCell";
         }
     }
     cell.foodNameLabel.text = str;
-    cell.nameLabel.text = [NSString stringWithFormat:@"用户 %@ 购买了",self.orderInfos[indexPath.row][@"account_name"]];
+    cell.nameLabel.text = [NSString stringWithFormat:@"%@ 订购了",self.orderInfos[indexPath.row][@"account_name"]];
     cell.priceLabel.text = [NSString stringWithFormat:@"共计：%@",self.orderInfos[indexPath.row][@"price"]];
     NSInteger order = [self.orderInfos[indexPath.row][@"order_id"] integerValue];
     cell.orderLabel.text = [NSString stringWithFormat:@"订单号：%09ld",order];
