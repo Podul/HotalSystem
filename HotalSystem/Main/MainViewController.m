@@ -85,6 +85,7 @@
         
         [btn addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
         [self.tabBar addSubview:btn];
+        
     }
     
 }
