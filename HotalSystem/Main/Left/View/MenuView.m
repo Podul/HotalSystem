@@ -65,8 +65,8 @@
     [self.rightSGR addTarget:object action:@selector(back:)];
     self.tableView.delegate = object;
     self.tableView.dataSource = object;
-    [self.backItem setLeftBarButtonItem:[[UIBarButtonItem alloc]initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:object action:@selector(back:)]];
-    
+    [self.backItem setLeftBarButtonItem:[[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"back"] style:UIBarButtonItemStylePlain target:object action:@selector(back:)]];
+
     self.managerItem.title = @"管理";
     [self.managerItem setTarget:object];
     [self.managerItem setAction:@selector(manager:)];

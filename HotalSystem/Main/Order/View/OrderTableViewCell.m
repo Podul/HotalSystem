@@ -9,6 +9,24 @@
 #import "OrderTableViewCell.h"
 
 @implementation OrderTableViewCell
+- (void)layoutSubviews{
+    [super layoutSubviews];
+    [self dealDeleteButton];
+}
+
+- (void)dealDeleteButton{
+    for (UIView *subView in self.subviews) {
+        if ([subView isKindOfClass:NSClassFromString(@"UITableViewCellDeleteConfirmationView")]) {
+            subView.backgroundColor = [UIColor blueColor];
+            for (UIButton *button in subView.subviews) {
+                if ([button isKindOfClass:[UIButton class]]) {
+                    button.backgroundColor = [UIColor blueColor];
+                    button.titleLabel.font = [UIFont systemFontOfSize:11.0];
+                }
+            }
+        }
+    }
+}
 
 - (void)awakeFromNib {
     [super awakeFromNib];

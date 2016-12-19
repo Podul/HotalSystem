@@ -68,7 +68,8 @@
 - (UIBarButtonItem *)revealBtn{
     if (_revealBtn == nil) {
         _revealBtn = [[UIBarButtonItem alloc]init];
-        [_revealBtn setTitle:@"菜单"];
+        [_revealBtn setImage:[UIImage imageNamed:@"menu"]];
+//        [_revealBtn setTitle:@"菜单"];
     }
     return _revealBtn;
 }

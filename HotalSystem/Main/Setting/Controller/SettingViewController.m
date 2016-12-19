@@ -219,21 +219,27 @@ static NSString *settingCell = @"settingCell";
             if ([self.settingM.infos[indexPath.section][indexPath.row] isEqual:@"退出登录"]){
                 [self exitLogin:self.settingM.infos[0][0][@"account_id"]];
             }
+            if ([self.settingM.infos[indexPath.section][indexPath.row] isEqualToString:@"清除缓存"]){
+                [[SDImageCache sharedImageCache] clearDisk];
+                [[SDImageCache sharedImageCache] clearMemory];//可有可无
+                [self.settingView.tableView reloadData];
+            }
         }
     }else{
         if ([self.settingM.infos[indexPath.section][indexPath.row] isEqual:@"登录"]) {
             [self presentViewController:[[LoginViewController alloc]init] animated:YES completion:nil];
         }
+        if ([self.settingM.infos[indexPath.section][indexPath.row] isEqualToString:@"清除缓存"]){
+            [[SDImageCache sharedImageCache] clearDisk];
+            [[SDImageCache sharedImageCache] clearMemory];//可有可无
+            [self.settingView.tableView reloadData];
+        }
     }
-    if ([self.settingM.infos[indexPath.section][indexPath.row] isEqualToString:@"清除缓存"]){
-        [[SDImageCache sharedImageCache] clearDisk];
-        [[SDImageCache sharedImageCache] clearMemory];//可有可无
-        [self.settingView.tableView reloadData];
-    }
+    
     
 }
 - (void)exitLogin:(NSString *)accountid{
-    UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"提示" message:@"确定退出登录？" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"提示" message:@"您将退出登录" preferredStyle:UIAlertControllerStyleActionSheet];
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.settingView.proHUD setMode:MBProgressHUDModeIndeterminate];

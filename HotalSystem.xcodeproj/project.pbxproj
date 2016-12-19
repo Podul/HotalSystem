@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		58ADDF511E07AAD7004A23F0 /* AddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58ADDF501E07AAD7004A23F0 /* AddViewController.m */; };
+		58ADDF541E07AAEF004A23F0 /* AddView.m in Sources */ = {isa = PBXBuildFile; fileRef = 58ADDF531E07AAEF004A23F0 /* AddView.m */; };
 		58FD704A1E03B76400F1BA47 /* UserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58FD70491E03B76400F1BA47 /* UserViewController.m */; };
 		58FD704D1E03BC0000F1BA47 /* PreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 58FD704C1E03BC0000F1BA47 /* PreView.m */; };
 		78055C391DFAA6A3008C269B /* ManagerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 78055C381DFAA6A3008C269B /* ManagerTableViewCell.m */; };
@@ -73,6 +75,10 @@
 		0B6824CCE4159BBE72744E75 /* libPods-HotalSystem.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HotalSystem.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0CC41B2E4867CF2066A1EEAC /* Pods-HotalSystem.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HotalSystem.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HotalSystem/Pods-HotalSystem.debug.xcconfig"; sourceTree = "<group>"; };
 		394389A9BACC77F376804BF5 /* Pods-HotalSystem.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HotalSystem.release.xcconfig"; path = "Pods/Target Support Files/Pods-HotalSystem/Pods-HotalSystem.release.xcconfig"; sourceTree = "<group>"; };
+		58ADDF4F1E07AAD7004A23F0 /* AddViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddViewController.h; sourceTree = "<group>"; };
+		58ADDF501E07AAD7004A23F0 /* AddViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddViewController.m; sourceTree = "<group>"; };
+		58ADDF521E07AAEF004A23F0 /* AddView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddView.h; path = HotalSystem/Main/Preferential/Controller/AddView.h; sourceTree = SOURCE_ROOT; };
+		58ADDF531E07AAEF004A23F0 /* AddView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddView.m; path = HotalSystem/Main/Preferential/Controller/AddView.m; sourceTree = SOURCE_ROOT; };
 		58FD70481E03B76400F1BA47 /* UserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserViewController.h; sourceTree = "<group>"; };
 		58FD70491E03B76400F1BA47 /* UserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserViewController.m; sourceTree = "<group>"; };
 		58FD704B1E03BC0000F1BA47 /* PreView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PreView.h; path = HotalSystem/Main/Setting/Controller/PreView.h; sourceTree = SOURCE_ROOT; };
@@ -311,6 +317,8 @@
 			children = (
 				7807DCFC1DD9DC9900177994 /* PreferentialViewController.h */,
 				7807DCFD1DD9DC9900177994 /* PreferentialViewController.m */,
+				58ADDF4F1E07AAD7004A23F0 /* AddViewController.h */,
+				58ADDF501E07AAD7004A23F0 /* AddViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -327,6 +335,8 @@
 			children = (
 				58FD704B1E03BC0000F1BA47 /* PreView.h */,
 				58FD704C1E03BC0000F1BA47 /* PreView.m */,
+				58ADDF521E07AAEF004A23F0 /* AddView.h */,
+				58ADDF531E07AAEF004A23F0 /* AddView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -720,7 +730,9 @@
 			files = (
 				78F479DC1DDBE3DC00B4CC9C /* HomeView.m in Sources */,
 				7845A20C1DE29A4C0038335E /* FoodViewController.m in Sources */,
+				58ADDF511E07AAD7004A23F0 /* AddViewController.m in Sources */,
 				78455AFC1DD9CE6000F023C3 /* AppDelegate.m in Sources */,
+				58ADDF541E07AAEF004A23F0 /* AddView.m in Sources */,
 				787F97EB1DDE87A800216425 /* SettingTableViewCell.m in Sources */,
 				78FF03F31DF1966A00082157 /* MenuViewController.m in Sources */,
 				7845A2141DE2E5FB0038335E /* SettingModel.m in Sources */,

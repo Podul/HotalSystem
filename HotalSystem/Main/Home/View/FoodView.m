@@ -41,7 +41,7 @@
     [self.rightSGR addTarget:object action:@selector(back:)];
     [self lunbo];
     
-    [self.backItem setLeftBarButtonItem:[[UIBarButtonItem alloc]initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:object action:@selector(back:)]];
+    [self.backItem setLeftBarButtonItem:[[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"back"] style:UIBarButtonItemStylePlain target:object action:@selector(back:)]];
     
     [self.navBar setItems:@[self.backItem]];
 //    self.backItem

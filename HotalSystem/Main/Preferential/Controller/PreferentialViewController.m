@@ -7,6 +7,7 @@
 //
 
 #import "PreferentialViewController.h"
+#import "AddViewController.h"
 #import "PreView.h"
 
 @interface PreferentialViewController ()
@@ -16,7 +17,7 @@
 @implementation PreferentialViewController
 - (PreView *)preView{
     if (_preView == nil) {
-        _preView = [[PreView alloc]initWithFrame:self.view.frame];
+        _preView = [[PreView alloc]initWithFrame:self.view.frame andNavItem:self.navigationItem];
         [self.view addSubview:_preView];
     }
     return _preView;
@@ -33,6 +34,10 @@
     //如果没有内容
     self.preView.noInfoLabel.text = @"暂无优惠信息";
     [self.preView.noInfoLabel setHidden:NO];
+}
+
+- (void)addPre:(id)sender{
+    [self presentViewController:[[AddViewController alloc]init] animated:YES completion:nil];
 }
 
 - (void)didReceiveMemoryWarning {

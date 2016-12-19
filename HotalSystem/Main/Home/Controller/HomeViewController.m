@@ -169,11 +169,12 @@ static NSString *homeID = @"homeCell";
     }];
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self.homeView createHomeView:self];
-    self.proHUD.mode = MBProgressHUDModeIndeterminate;
-    [self.proHUD.label setText:@"加载中..."];
-    [self.proHUD showAnimated:YES];
-    //打开就加载数据
-    [HomeModel foodInfo];
+//    self.proHUD.mode = MBProgressHUDModeIndeterminate;
+//    [self.proHUD.label setText:@"加载中..."];
+//    [self.proHUD showAnimated:YES];
+    //打开加载本地数据
+    self.foods = [NSArray arrayWithContentsOfFile:FPATH];
+//    [HomeModel foodInfo];
     [LeftModel menuInfo];   //获取菜单
     
     [self.homeView.submitView setHidden:YES];
@@ -184,7 +185,7 @@ static NSString *homeID = @"homeCell";
     [self.proHUD setMode:MBProgressHUDModeIndeterminate];
     self.proHUD.label.text = @"提交中...";
     [self.proHUD showAnimated:YES];
-    NSLog(@"%@",self.foodOrders);
+//    NSLog(@"%@",self.foodOrders);
 //    NSMutableArray *names = [NSMutableArray array];
     for (id obj in self.foods) {
         for (int i=0; i<self.foodOrders.count; i++) {
@@ -211,7 +212,7 @@ static NSString *homeID = @"homeCell";
             
 //            NSLog(@"%@",tmpArray[0][0][@"user_name"]);
         }
-        NSLog(@"%@",self.foodOrders);
+//        NSLog(@"%@",self.foodOrders);
         [OrderModel orderWithsubmit:self.foodOrders];
     }else{
         //如果没有登陆，跳到登陆页面
@@ -287,7 +288,7 @@ static NSString *homeID = @"homeCell";
         [self.orders[sender.tag - 100] setValue:self.foods[sender.tag - 100][@"food_id"] forKey:@"food_id"];
         [self.homeView.tableView reloadData];
     }
-    NSLog(@"%@",self.orders);
+//    NSLog(@"%@",self.orders);
     NSMutableString *tmpStr = [NSMutableString stringWithFormat:@"%@",self.foods[sender.tag - 100][@"price"]];
     NSString *tmpPrice = [tmpStr stringByReplacingOccurrencesOfString:@"元" withString:@""];
     

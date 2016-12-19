@@ -9,5 +9,5 @@
 #import <Foundation/Foundation.h>
 
 @interface LoginModel : NSObject
-
++ (void)regWithName:(NSString *)name andPassword:(NSString *)psd andTel:(NSString *)tel;
 @end

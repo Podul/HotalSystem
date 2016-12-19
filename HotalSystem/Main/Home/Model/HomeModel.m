@@ -21,6 +21,9 @@
 //                NSLog(@"%@",responseObject[@"food_names"]);
         if ([responseObject[@"result"] isEqual:@1]) {
             [[NSNotificationCenter defaultCenter]postNotificationName:@"allFoods" object:@"Podul" userInfo:@{@"foods":responseObject}];
+            //存本地
+            NSArray *tmpArray = responseObject[@"food_names"];
+            [tmpArray writeToFile:FPATH atomically:YES];
         }else{
             [[NSNotificationCenter defaultCenter]postNotificationName:@"loadError" object:@"Podul"];
         }

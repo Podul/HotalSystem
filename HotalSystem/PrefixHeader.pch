@@ -15,6 +15,7 @@
 #define kHeight   [UIScreen mainScreen].bounds.size.height
 
 #define SPATH [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/setting.plist"]
+#define FPATH [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/food.plist"]
 
 #define IS_IPHONE5_5S (([[UIScreen mainScreen] bounds].size.height == 568.0) ? YES : NO)
 
