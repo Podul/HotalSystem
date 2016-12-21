@@ -8,8 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-typedef void(^rowAndSectionBlock)(NSInteger row,NSInteger section);
 @interface FoodViewController : UIViewController
 
-@property (nonatomic,copy)rowAndSectionBlock block;
+
 @end

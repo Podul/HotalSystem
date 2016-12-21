@@ -93,7 +93,7 @@
 - (void)btnAction:(UIButton *)sender{
     self.selectedIndex = sender.tag - 100;
     for (int i=0; i<self.icons.count; i++) {
-        UIButton *btn = [self.view viewWithTag:100+i];
+        UIButton *btn = [self.tabBar viewWithTag:100+i];
         btn.selected = NO;
         if (sender.tag == 100 + i) {
             btn.selected = YES;

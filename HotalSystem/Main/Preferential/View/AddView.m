@@ -40,6 +40,28 @@
     return _tableView;
 }
 
+//- (UIView *)preInfoView{
+//    if (_preInfoView == nil) {
+//        _preInfoView = [[UIView alloc]initWithFrame:CGRectMake(0, 64, kWidth, kHeight - 64)];
+//        [_preInfoView setBackgroundColor:[UIColor whiteColor]];
+//        [_preInfoView setHidden:YES];
+//        [self addSubview:_preInfoView];
+//    }
+//    return _preInfoView;
+//}
+
+- (MBProgressHUD *)proHUD{
+    if (_proHUD == nil) {
+        _proHUD = [[MBProgressHUD alloc]initWithView:self];
+        _proHUD.contentColor = [UIColor whiteColor];
+        _proHUD.detailsLabel.textColor = [UIColor whiteColor];
+        _proHUD.label.textColor = [UIColor whiteColor];
+        [_proHUD.bezelView setBackgroundColor:[UIColor blackColor]];
+        [self addSubview:_proHUD];
+    }
+    return _proHUD;
+}
+
 - (void)createAddView:(id)object{
     UINavigationBar *navBar = [[UINavigationBar alloc]initWithFrame:CGRectMake(0, 0, kWidth, 64)];
     [self addSubview:navBar];

@@ -7,6 +7,7 @@
 //
 
 #import "AddViewController.h"
+#import "AddModel.h"
 #import "AddView.h"
 
 @interface AddViewController ()<UITableViewDelegate,UITableViewDataSource>
@@ -52,8 +53,30 @@
     return _tmpData;
 }
 
+- (void)createNotif{
+    //添加成功
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(addPreSuccess:) name:@"addPreSuccess" object:@"Podul"];
+    //添加失败
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(addPreError:) name:@"addPreError" object:@"Podul"];
+}
+#pragma mark - 添加成功
+- (void)addPreSuccess:(id)sender{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.addView.proHUD hideAnimated:YES];
+        [self dismissViewControllerAnimated:YES completion:nil];
+    });
+}
+#pragma mark - 添加失败
+- (void)addPreError:(id)sender{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.addView.proHUD setMode:MBProgressHUDModeText];
+        self.addView.proHUD.label.text = @"添加失败";
+    });
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self createNotif]; //通知
     // Do any additional setup after loading the view.
     [self.addView createAddView:self];
     
@@ -103,17 +126,55 @@
 #pragma mark - 下一步
 - (void)nextStep:(id)sender{
     if (self.tmpData.count != 0) {  //如果选了
-        UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 64, kWidth, kHeight-64)];
-        [view setBackgroundColor:[UIColor whiteColor]];
-        //设置优惠界面
+//        [self.addView.preInfoView setHidden:NO];
+        //设置价格
+        UIAlertController *priceAlert = [UIAlertController alertControllerWithTitle:@"提示" message:@"请设置价格" preferredStyle:UIAlertControllerStyleAlert];
+        [priceAlert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+            textField.placeholder = @"请输入优惠名";
+        }];
+        [priceAlert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+            textField.placeholder = @"请输入价格";
+            [textField setKeyboardType:UIKeyboardTypeNumberPad];
+        }];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"提交" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            if (priceAlert.textFields.firstObject.text.length != 0 && priceAlert.textFields.lastObject.text.length != 0) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.addView.proHUD setMode:MBProgressHUDModeIndeterminate];
+                    self.addView.proHUD.label.text = @"提交中...";
+                    [self.addView.proHUD showAnimated:YES];
+                });
+                [AddModel addWithPre:self.tmpData andName:priceAlert.textFields[0].text withPrice:priceAlert.textFields[1].text];
+            }else{
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.addView.proHUD setMode:MBProgressHUDModeText];
+                    self.addView.proHUD.label.text = @"请输入正确内容";
+                    [self.addView.proHUD showAnimated:YES];
+                });
+            }
+            
+        }];
         
-        [self.addView addSubview:view];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+        [priceAlert addAction:okAction];
+        [priceAlert addAction:cancelAction];
+        [self presentViewController:priceAlert animated:YES completion:nil];
+    }
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    if (self.addView.proHUD.mode == MBProgressHUDModeText) {
+        [self.addView.proHUD hideAnimated:YES];
     }
 }
 
 #pragma mark - 取消
 - (void)cancel:(id)sender{
-    [self dismissViewControllerAnimated:YES completion:nil];
+//    if (self.addView.preInfoView.hidden) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+//    }else{
+//        [self.addView.preInfoView setHidden:YES];
+//    }
+    
 }
 
 @end

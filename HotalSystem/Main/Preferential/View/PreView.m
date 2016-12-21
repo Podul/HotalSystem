@@ -16,6 +16,15 @@
     return self;
 }
 
+- (UITableView *)tableView{
+    if (_tableView == nil) {
+        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kWidth, kHeight - 49) style:UITableViewStylePlain];
+        [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
+        [self addSubview:_tableView];
+    }
+    return _tableView;
+}
+
 - (UIBarButtonItem *)addBarItem{
     if (_addBarItem == nil) {
         _addBarItem = [[UIBarButtonItem alloc]init];
@@ -36,7 +45,22 @@
     return _noInfoLabel;
 }
 
+- (MBProgressHUD *)proHUD{
+    if (_proHUD == nil) {
+        _proHUD = [[MBProgressHUD alloc]initWithView:self];
+        _proHUD.contentColor = [UIColor whiteColor];
+        _proHUD.detailsLabel.textColor = [UIColor whiteColor];
+        _proHUD.label.textColor = [UIColor whiteColor];
+        [_proHUD.bezelView setBackgroundColor:[UIColor blackColor]];
+        [self addSubview:_proHUD];
+    }
+    return _proHUD;
+}
+
 - (void)createPreView:(id)object{
+    self.tableView.delegate = object;
+    self.tableView.dataSource = object;
+    
     [self.addBarItem setTarget:object];
     [self.addBarItem setAction:@selector(addPre:)];
 }
